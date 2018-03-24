@@ -244,7 +244,7 @@ pub trait Fs {
     /// The type that represents a file on the filesystem.
     type File: File<Error = Self::Error>;
     /// The type that represents a directory on the filesystem.
-    type Dir: Dir<Self::DirEntry>;
+    type Dir: Dir<Self::DirEntry, Self::Error>;
     /// The type that represents an entry in a directory on the filesystem.
     type DirEntry: DirEntry<
         Path = Self::Path,
@@ -599,9 +599,7 @@ pub trait File {
 ///
 /// [`read_dir`]: trait.Fs.html#method.read_dir
 /// [`DirEntry`]: trait.DirEntry.html
-pub trait Dir<E: DirEntry>
-    : File + Iterator<Item = Result<E, <Self as File>::Error>> {
-}
+pub trait Dir<T: DirEntry, E>: Iterator<Item = Result<T, E>> {}
 
 /// Entries returned by the [`Dir`] iterator.
 ///
