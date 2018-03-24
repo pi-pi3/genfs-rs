@@ -1,0 +1,6 @@
+[package]
+name = "genfs"
+version = "0.1.0"
+authors = ["Szymon Walter <walter.szymon.98@gmail.com>"]
+
+[dependencies]
