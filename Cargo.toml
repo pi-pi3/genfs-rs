@@ -2,5 +2,16 @@
 name = "genfs"
 version = "0.1.0"
 authors = ["Szymon Walter <walter.szymon.98@gmail.com>"]
+license = "Zlib"
+readme = "README.md"
+keywords = ["filesystem", "no_std", "osdev"]
+repository = "https://github.com/pi-pi3/genfs-rs"
+homepage = "https://github.com/pi-pi3/genfs-rs"
+documentation = "https://docs.rs/genfs"
+categories = ["no-std"]
+description = """
+Generic traits, structs and enums for implementing filesystems in no_std
+environments.
+"""
 
 [dependencies]
