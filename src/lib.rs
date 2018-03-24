@@ -241,6 +241,9 @@ pub trait Fs {
     /// The borrowed path slice that represents a relative or absolute path on
     /// the filesystem.
     type Path: ?Sized;
+    /// The owned path that represents a relative or absolute path on
+    /// the filesystem.
+    type PathOwned;
     /// The type that represents a file on the filesystem.
     type File: File<Error = Self::Error>;
     /// The type that represents a directory on the filesystem.
@@ -403,8 +406,7 @@ pub trait Fs {
     fn read_link(
         &self,
         path: &Self::Path,
-        dst: &mut Self::Path,
-    ) -> Result<usize, Self::Error>;
+    ) -> Result<Self::PathOwned, Self::Error>;
 
     /// Returns the canonical form of a path with all intermediate components
     /// normalized and symbolic links resolved.
@@ -419,8 +421,7 @@ pub trait Fs {
     fn canonicalize(
         &self,
         path: &Self::Path,
-        dst: &mut Self::Path,
-    ) -> Result<usize, Self::Error>;
+    ) -> Result<Self::PathOwned, Self::Error>;
 
     /// Creates a new, empty directory at the provided path with the specified
     /// options.
@@ -612,6 +613,9 @@ pub trait DirEntry {
     /// The borrowed path slice that represents a relative or absolute path on
     /// the filesystem.
     type Path: ?Sized;
+    /// The owned path that represents a relative or absolute path on
+    /// the filesystem.
+    type PathOwned;
     /// The type that represents a files metadata on the filesystem.
     type Metadata;
     /// The type that represents the union of all possible filetypes.
@@ -624,7 +628,7 @@ pub trait DirEntry {
     ///
     /// The full path is created by joining the original path to `read_dir`
     /// with the filename of this entry.
-    fn path(&self, dst: &mut Self::Path) -> usize;
+    fn path(&self) -> Self::PathOwned;
 
     /// Return the metadata for the file that this entry points at.
     ///
@@ -640,5 +644,5 @@ pub trait DirEntry {
 
     /// Returns the bare file name of this directory entry without any other
     /// leading path component.
-    fn file_name(&self, dst: &mut Self::Path);
+    fn file_name(&self) -> &Self::Path;
 }
