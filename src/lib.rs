@@ -271,7 +271,7 @@ pub trait Fs {
     /// circumstances.
     fn open(
         &self,
-        path: Self::Path,
+        path: &Self::Path,
         options: &OpenOptions<Self::Permissions>,
     ) -> Result<Self::File, Self::Error>;
 
